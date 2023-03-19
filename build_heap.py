@@ -2,9 +2,28 @@
 
 
 def build_heap(data):
+    n = len(data)
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
+
+    def heapify(i):
+        nonlocal swaps
+        min_idx = i
+        l = 2*i + 1
+        r = 2*i + 2
+
+        if l < n and data[l] < data[min_idx]:
+            min_idx = l
+        if r < n and data[r] < data[min_idx]:
+            min_idx = r
+
+        if i != min_idx:
+            data[i], data[min_idx] = data[min_idx], data[i]
+            swaps.append((i, min_idx))
+            heapify(min_idx)
+
+    # start from the last parent node
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(i)
 
 
     return swaps
